@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur mon Blog !{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        h3, h4{
+            color: #666;
+        }
+    </style>
+
+{% endblock %}
+
+{% block header %}
+    <header>    s
+        <h1>Mon Blog</h1>
+    </header>
+{% endblock %}
+
+{% block body %}
+    {% for article in articles %}
+        <a href="/article/{{ article.id }}">
+            <h1>{{ article.title }}</h1>
+            <h3>{{ article.description }}</h3>
+            <h4>{{ article.author }} | {{ article.date|date('d/m/Y') }}</h4>
+        </a>
+        <hr>
+    {% endfor %}
+{% endblock %}
