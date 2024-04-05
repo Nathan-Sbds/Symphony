@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Commentary;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,8 +17,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CommentaryRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
         parent::__construct($registry, Commentary::class);
     }
 
@@ -45,4 +49,11 @@ class CommentaryRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function delete($id)
+    {
+        $commentary = $this->find($id);
+        $this->entityManager->remove($commentary);
+        $this->entityManager->flush();
+    }
 }

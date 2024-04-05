@@ -3,3 +3,23 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+ajouter_article:
+    path: /ajouter_article
+    controller: App\Controller\ArticleController::ajouterArticle
+    methods: [POST]
+    
+ajouter_commentary:
+    path: /ajouter_commentary
+    controller: App\Controller\CommentaryController::ajouterCommentary 
+    methods: [POST]
+    
+editer_article:
+    path: /editer_article
+    controller: App\Controller\ArticleController::editerArticle
+    methods: [POST]
+    
+supprimer_article:
+    path: /supprimer_article
+    controller: App\Controller\ArticleController::supprimerArticle
+    methods: [POST]

@@ -11,12 +11,6 @@
 
 {% endblock %}
 
-{% block header %}
-    <header>    s
-        <h1>Mon Blog</h1>
-    </header>
-{% endblock %}
-
 {% block body %}
     {% for article in articles %}
         <a href="/article/{{ article.id }}">
@@ -26,4 +20,16 @@
         </a>
         <hr>
     {% endfor %}
+
+    {% if is_granted('ROLE_USER') %}
+        <h2>Ajouter un nouvel article :</h2>
+        <form action="/ajouter_article" method="post">
+            <input type="text" name="title" placeholder="Titre de l'article" required><br>
+            <textarea name="content" placeholder="Contenu de l'article" required></textarea><br>
+            <input type="submit" value="Ajouter l'article">
+        </form>
+    {% else %}
+        <p>Veuillez vous connecter pour ajouter un nouvel article.</p>
+        <a href="/login">Se connecter</a>
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur mon Blog !{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        h3, h4{
+            color: #666;
+        }
+    </style>
+
+{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
+        <h2>Modification de l'article :</h2>
+        <form action="/editer_article" method="post">
+            <input type="hidden" name="article_id" value="{{ article.id }}">
+            <input type="text" name="title" placeholder="Titre de l'article" value="{{ article.title }}" required><br>
+            <textarea name="content" placeholder="Contenu de l'article" required>{{ article.description }}</textarea><br>
+            <input type="submit" value="Modifier l'article">
+        </form>
+    {% endif %}
+{% endblock %}

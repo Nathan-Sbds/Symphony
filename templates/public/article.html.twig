@@ -11,11 +11,6 @@
 
 {% endblock %}
 
-{% block header %}
-    <header>
-        <h1>Mon Blog</h1>
-    </header>
-{% endblock %}
 
 {% block body %}
     <div>
@@ -34,4 +29,21 @@
 
     <hr>
     <a href="{{ path('app_accueil') }}">Retour à la liste des articles</a>
+
+    {% set username = app.user.email|split('@')[0] %}
+    {% if is_granted('ROLE_ADMIN') or article.author == username %}
+        <a href="{{ path('app_article_edit', {'id': article.id}) }}">Modifier l'article</a>
+        <a href="{{ path('app_article_delete', {'id': article.id}) }}">Supprimer l'article</a>
+    {% endif %}
+    {% if is_granted('ROLE_USER') %}
+        <h2>Ajouter un nouveau commentaire :</h2>
+        <form action="/ajouter_commentary" method="post">
+            <input type="hidden" name="article_id" value="{{ article.id }}">
+            <textarea name="content" placeholder="Contenu du commentaire" required></textarea><br>
+            <input type="submit" value="Ajouter le commentaire">
+        </form>
+    {% else %}
+        <p>Veuillez vous connecter pour ajouter un nouveau commentaire.</p>
+        <a href="/login">Se connecter</a>
+    {% endif %}
 {% endblock %}
