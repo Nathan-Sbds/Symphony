@@ -37,7 +37,6 @@ class ArticleController extends AbstractController
         $this->entityManager->persist($article);
         $this->entityManager->flush();
 
-        // Rediriger vers la page d'accueil ou une autre page
         return $this->redirectToRoute('app_accueil');
     }
 
